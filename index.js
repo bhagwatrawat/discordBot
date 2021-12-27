@@ -53,6 +53,26 @@ client.on("messageCreate",(msg)=>{
     .setFooter('The best bgmi player of Botx clan and Leader of Botx', 'https://booyah.co.id/wp-content/uploads/2020/07/rrq-hades-logo-quiz.jpg');
      msg.channel.send({ embeds: [embed] })
  }
+ if(msg.content=="!custom gameplay"){
+    const embed = new Discord.MessageEmbed()
+    .setTitle("T3 CUSTOM HIGHLIGHTS")
+    .setURL("https://youtu.be/9Mwe8d1fJm8")
+    .setColor('#A1DDC2')
+   .setAuthor({ name: 'CrocBotx', iconURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWn5RoA4kbXnhLBfRUd3OBQ2jVqz2iHKM_rg&usqp=CAU', url: 'https://www.youtube.com/channel/UC9XNaatRhU_zIqEtWqvakJQ' })
+   .setDescription('Do Like share and subscibe the channel ')
+   .setThumbnail('https://i.ytimg.com/vi/qTa-kXtrbTY/maxresdefault.jpg')
+   // .addFields(
+   //     { name: 'Regular field title', value: 'Some value here' },
+   //     { name: '\u200B', value: '\u200B' },
+   //     { name: 'Inline field title', value: 'Some value here', inline: true },
+   //     { name: 'Inline field title', value: 'Some value here', inline: true },
+   // )
+   // .addField('Inline field title', 'Some value here', true)
+   .setImage('https://i.ytimg.com/vi/qTa-kXtrbTY/maxresdefault.jpg')
+   .setTimestamp()
+   .setFooter('Member of BotX clan', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWn5RoA4kbXnhLBfRUd3OBQ2jVqz2iHKM_rg&usqp=CAU');
+    msg.channel.send({ embeds: [embed] })
+}
  if(msg.content=="/naruto quotes"){
     const x= Math.floor(Math.random()*200)
     const y = Math.floor(Math.random()*10)

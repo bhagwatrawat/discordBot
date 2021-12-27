@@ -20,6 +20,18 @@ client.on("messageCreate",(msg)=>{
  if(msg.content=="soja ravi soja"){
      msg.reply("ha bhai ravi jldi soja bhai sahi keh raha ye")
  }
+ if(msg.content=="/naruto quotes"){
+    const x= Math.floor(Math.random()*100)
+    const y = Math.floor(Math.random()*10)
+    axios.get(`https://animechan.vercel.app/api/quotes/anime?title=naruto&page=${x}`).
+    then(res => {
+        
+        msg.reply(res.data[y].quote+"- "+res.data[y].character);
+    })
+    .catch(err=>{
+        msg.reply("No quotes sorry!!")
+    })
+ }
  if(msg.content=="/chuck norris joke"){
      axios.get("https://api.chucknorris.io/jokes/random")
      .then(res=>{

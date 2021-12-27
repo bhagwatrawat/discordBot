@@ -11,9 +11,9 @@ require("dotenv").config()
 client.on("ready",()=>{
     console.log("logged in as "+client.user.tag)
     client.user.setPresence({
-        activity:{
+        activity:[{
             name:`"!help: for help"`
-        }
+        }]
     })
 })
 // message event is run when the bot recieves a message

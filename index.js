@@ -10,11 +10,7 @@ require("dotenv").config()
 // client.user.tag to get the name of bot
 client.on("ready",()=>{
     console.log("logged in as "+client.user.tag)
-    client.user.setPresence({
-        activity:[{
-            name:`"!help: for help"`
-        }]
-    })
+    client.user.setPresence({ activities: [{ name: `"!help" for help` }], status: 'idle' })
 })
 // message event is run when the bot recieves a message
 client.on("messageCreate",(msg)=>{

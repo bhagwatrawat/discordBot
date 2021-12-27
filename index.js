@@ -21,7 +21,7 @@ client.on("messageCreate",(msg)=>{
      msg.reply("ha bhai ravi jldi soja bhai sahi keh raha ye")
  }
  if(msg.content=="/naruto quotes"){
-    const x= Math.floor(Math.random()*1000)
+    const x= Math.floor(Math.random()*200)
     const y = Math.floor(Math.random()*10)
     axios.get(`https://animechan.vercel.app/api/quotes/anime?title=naruto&page=${x}`).
     then(res => {

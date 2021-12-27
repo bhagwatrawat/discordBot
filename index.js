@@ -20,6 +20,26 @@ client.on("messageCreate",(msg)=>{
  if(msg.content=="soja ravi soja"){
      msg.reply("ha bhai ravi jldi soja bhai sahi keh raha ye")
  }
+ if(msg.content=="!montage"){
+     const embed = new Discord.MessageEmbed()
+     .setTitle("FPP TDM MONTAGE WAREHOUSE")
+     .setURL("https://youtu.be/IYGVvwD44TM")
+     .setColor('#A1DDC2')
+    .setAuthor({ name: 'LaggerBotx', iconURL: 'https://booyah.co.id/wp-content/uploads/2020/07/rrq-hades-logo-quiz.jpg', url: 'https://www.youtube.com/channel/UCvjXCQhKrgGoGrc6rSZ9S8g' })
+    .setDescription('Do Like share and subscibe the channel ')
+    .setThumbnail('https://img.gurugamer.com/resize/740x-/2021/08/18/always-take-cover-e420.jpg')
+    // .addFields(
+    //     { name: 'Regular field title', value: 'Some value here' },
+    //     { name: '\u200B', value: '\u200B' },
+    //     { name: 'Inline field title', value: 'Some value here', inline: true },
+    //     { name: 'Inline field title', value: 'Some value here', inline: true },
+    // )
+    // .addField('Inline field title', 'Some value here', true)
+    .setImage('https://img.gurugamer.com/resize/740x-/2021/08/18/always-take-cover-e420.jpg')
+    .setTimestamp()
+    .setFooter('The best bgmi player of Botx clan and Leader of Botx', 'https://booyah.co.id/wp-content/uploads/2020/07/rrq-hades-logo-quiz.jpg');
+     msg.channel.send({ embeds: [embed] })
+ }
  if(msg.content=="/naruto quotes"){
     const x= Math.floor(Math.random()*200)
     const y = Math.floor(Math.random()*10)

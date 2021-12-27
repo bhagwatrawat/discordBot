@@ -10,6 +10,11 @@ require("dotenv").config()
 // client.user.tag to get the name of bot
 client.on("ready",()=>{
     console.log("logged in as "+client.user.tag)
+    client.user.setPresence({
+        activity:{
+            name:`"!help: for help"`
+        }
+    })
 })
 // message event is run when the bot recieves a message
 client.on("messageCreate",(msg)=>{
@@ -17,9 +22,21 @@ client.on("messageCreate",(msg)=>{
  if(msg.content=="ping"){
      msg.reply("pong")
  }
+//  fo help command
+ if(msg.content=="!help"){
+    msg.channel.send(`These are the commands supported in this channel:
+    1. !montage : to see the best bgmi tdm montage
+    2. /naruto quotes : for the naruto quotes
+    3. /quotes : for quotes
+    4. /chuck norris joke : for the chuck norris jokes
+    5. type lokesh or croc : to know about lokesh
+    6. type vijay or bicchu : to know about vijay
+    7. type lagger or bhagwat: to know about bhagwat `)
+ }
  if(msg.content=="soja ravi soja"){
      msg.reply("ha bhai ravi jldi soja bhai sahi keh raha ye")
  }
+//  for embed command
  if(msg.content=="!montage"){
      const embed = new Discord.MessageEmbed()
      .setTitle("FPP TDM MONTAGE WAREHOUSE")
@@ -86,5 +103,6 @@ if(msg.content.toLowerCase().includes("bicchu")){
      })
  }
 })
+
 keepAlive()
 client.login(process.env.TOKEN)

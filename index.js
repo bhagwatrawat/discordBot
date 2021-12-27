@@ -1,8 +1,8 @@
 const Discord = require('discord.js')
-const Server= require('./app.js')
+
 const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES] })
 const axios= require('axios')
-const keepAlive = require('./app.js')
+// const keepAlive = require('./app.js')
 require("dotenv").config()
 
 
@@ -54,5 +54,5 @@ if(msg.content.toLowerCase().includes("bicchu")){
      })
  }
 })
-keepAlive()
+// keepAlive()
 client.login(process.env.TOKEN)

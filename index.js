@@ -15,6 +15,7 @@ client.on("ready",()=>{
 // message event is run when the bot recieves a message
 client.on("messageCreate",(msg)=>{
     if(msg.author.bot) return 
+
  if(msg.content=="ping"){
      msg.reply("pong")
  }
@@ -54,62 +55,125 @@ client.on("messageCreate",(msg)=>{
      msg.channel.send({ embeds: [embed] })
  }
 // to create text channel
-// if(msg.content.startsWith("!createTextChannel")){
-//     const {member}= msg;
-//     if(member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])){
-//         const channelName= msg.content.replace("!createTextChannel ","")
-//         if(msg.guild.channels.cache.find(channel => channel.name === channelName)){
-//             msg.reply("channel already exists")
-//             return 
-//         }
+if(msg.content.startsWith("!createTextChannel")){
+    const {member}= msg;
+    if(member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])){
+        const channelName= msg.content.replace("!createTextChannel ","")
+        if(channelName=="" || channelName==" " || channelName==msg.content){
+            msg.reply("please enter a valid command or channel name")
+            return
+        }
+        if(msg.guild.channels.cache.find(channel => channel.name === channelName && channel.type === 'GUILD_TEXT')){
+            msg.reply("Text channel already exists")
+            return 
+        }
         
-//         msg.guild.channels.create(channelName,{type:'text'}).then(channel=>{
-//             const categoryId="898975095454830684"
-//             channel.setParent(categoryId)
-//             msg.reply(`channel ${channelName} created`)
-//         }).catch(err=>{
-//             msg.reply(`error ${err}`)
-//         })
+        msg.guild.channels.create(channelName,{type:'GUILD_TEXT'}).then(channel=>{
+            const categoryId='898975095454830684'
+            channel.setParent(categoryId)
+            msg.reply(`Text channel ${channelName} created`)
+        }).catch(err=>{
+            msg.reply(`error ${err}`)
+        })
 
-//     }
-//     else{
-//         msg.reply("You dont have permission to create channel")
-//     }
-// }
-// // to delete text channel
-// if(msg.content.startsWith("!deleteTextChannel")){
-//     const {member}= msg;
-//     if(member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])){
-//         const channelName= msg.content.replace("!deleteTextChannel ","")
-//         const channel = msg.guild.channels.cache
-//         .filter((channel) => {
-//           return channel.name === channelName 
-//         })
-//         .first();
-//         if (!channel) {
-//             msg.reply('That channel does not exist.')
-//             return
-//           }
+    }
+    else{
+        msg.reply("You dont have permission to create channel")
+    }
+}
+// to delete text channel
+if(msg.content.startsWith("!deleteTextChannel")){
+    const {member}= msg;
+    if(member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])){
+        const channelName= msg.content.replace("!deleteTextChannel ","")
+        const channel = msg.guild.channels.cache
+        .filter((channel) => {
+            if(channel.name==channelName && channel.type=="GUILD_TEXT"){
+                return channel.name === channelName 
+            }
+          
+        })
+        .first();
+        if (!channel) {
+            msg.reply('That Text channel does not exist.')
+            return
+          }
       
-//           channel.delete()
+          channel.delete()
       
-//           msg.reply('Channel deleted!')
+          msg.reply('Text Channel deleted!')
 
-//     }
-//     else{
-//         msg.reply("You dont have permission to delete channel")
-//     }
-// }
-// //  for banning or kicking
-// if(msg.content.startsWith("!ban")){
-//     const {member,mention} = msg
-//     if(member.permissions.has([Permissions.FLAGS.KICK_MEMBERS, Permissions.FLAGS.BAN_MEMBERS])){
-//         msg.reply("you have permission to ban members of this channel")
-//     }
-//     else{
-//         msg.reply("you dont have permissions for banning the members")
-//     }
-// }
+    }
+    else{
+        msg.reply("You dont have permission to delete channel")
+    }
+}
+// to create voice channel 
+if(msg.content.startsWith("!createVoiceChannel")){
+    const {member}=msg
+    if(member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])){
+        const channelName= msg.content.replace("!createVoiceChannel ","")
+        if(channelName=="" || channelName==" " || channelName==msg.content){
+            msg.reply("please enter a valid command or channel name")
+            return
+        }
+        if(msg.guild.channels.cache.find(channel => channel.name === channelName    && channel.type === 'GUILD_VOICE')){
+            msg.reply("Voice channel already exists")
+            return  
+        }
+        
+        msg.guild.channels.create(channelName,{type:'GUILD_VOICE'}).then(channel=>{
+            // channel.setUserLimit() to set user limit in the voice channel
+            const categoryId='898975095454830685'
+            channel.setParent(categoryId)
+            msg.reply(`Voice channel ${channelName} created`)
+        }).catch(err=>{
+            msg.reply(`error ${err}`)
+        })
+
+    }
+    else{
+        msg.reply("You dont have permission to create channel")
+    }
+
+}
+// to delete voice channel
+if(msg.content.startsWith("!deleteVoiceChannel")){
+    const {member}= msg;
+    if(member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])){
+        const channelName= msg.content.replace("!deleteVoiceChannel ","")
+        const channel = msg.guild.channels.cache
+        .filter((channel) => {
+            if(channel.name==channelName && channel.type=="GUILD_VOICE"){
+                return channel.name === channelName 
+            }
+          
+        })
+        .first();
+        if (!channel) {
+            msg.reply('That Voice channel does not exist.')
+            return
+          }
+      
+          channel.delete()
+      
+          msg.reply('Voice Channel deleted!')
+
+    }
+    else{
+        msg.reply("You dont have permission to delete channel")
+    }
+}
+//  for banning or kicking
+if(msg.content.startsWith("!ban")){
+    const {member,mention} = msg
+    if(member.permissions.has([Permissions.FLAGS.KICK_MEMBERS, Permissions.FLAGS.BAN_MEMBERS])){
+        msg.reply("you have permission to ban members of this channel")
+    }
+    else{
+        msg.reply("you dont have permissions for banning the members")
+    }
+}
  if(msg.content=="!custom gameplay"){
     const embed = new Discord.MessageEmbed()
     .setTitle("T3 CUSTOM HIGHLIGHTS")
@@ -175,6 +239,45 @@ if(msg.content.toLowerCase().includes("bicchu")){
          msg.reply("oops!! no quote for you")
      })
  }
+//  for pokedex channel only 
+if(msg.channel.name=="pokedex"){
+    if(msg.content.startsWith("!pokemon")){
+        const pokemonName= msg.content.replace("!pokemon ","")
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+        .then(res=>{
+            const embed = new Discord.MessageEmbed()
+            .setTitle(res.data.types[0].type.name+" type pokemon")
+            .setColor('#A1DDC2')
+           .setAuthor({ name: pokemonName, iconURL: res.data.sprites.other.home.front_default})
+           .setDescription('Pokemon Stats')
+        .addFields(
+       { name: 'HP', value:res.data.stats[0].base_stat+"",inline: true  },
+       { name: 'Attack', value: res.data.stats[1].base_stat+"", inline: true },
+        )
+        .addFields(
+       { name: 'Defense', value: res.data.stats[2].base_stat+"", inline: true },
+       { name: 'Speed', value: res.data.stats[5].base_stat+"", inline: true },
+        )
+        .addFields(
+       { name: 'Special-Defense', value:res.data.stats[4].base_stat+"",inline: true},
+       { name: 'Special-Attack', value:  res.data.stats[3].base_stat+"",inline: true },
+         
+
+   )
+ 
+           .setThumbnail(res.data.sprites.front_default)
+           .setImage(res.data.sprites.other.home.front_default)
+           .setTimestamp()
+           .setFooter(`Height : ${res.data.height} Weight : ${res.data.weight}` )
+            msg.channel.send({ embeds: [embed] })
+        
+        })
+        .catch(err=>{
+            console.log(err)
+            msg.reply("Pokemon not found")
+        })
+    }
+}
 })
 
 keepAlive()

@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 const Permissions=require('discord.js').Permissions
 const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES] })
 const axios= require('axios')
-const keepAlive = require('./app.js')
+const keepAlive = require('./app.js')   //keeps the bot alive
 require("dotenv").config()
 
 
@@ -54,60 +54,62 @@ client.on("messageCreate",(msg)=>{
      msg.channel.send({ embeds: [embed] })
  }
 // to create text channel
-if(msg.content.startsWith("!createTextChannel")){
-    const {member}= msg;
-    if(member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])){
-        const channelName= msg.content.replace("!createTextChannel ","")
-        if(msg.guild.channels.cache.find(channel => channel.name === channelName)){
-            msg.reply("channel already exists")
-            return 
-        }
+// if(msg.content.startsWith("!createTextChannel")){
+//     const {member}= msg;
+//     if(member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])){
+//         const channelName= msg.content.replace("!createTextChannel ","")
+//         if(msg.guild.channels.cache.find(channel => channel.name === channelName)){
+//             msg.reply("channel already exists")
+//             return 
+//         }
         
-        msg.guild.channels.create(channelName,{type:'text'}).then(channel=>{
-            msg.reply(`channel ${channelName} created`)
-        }).catch(err=>{
-            msg.reply(`error ${err}`)
-        })
+//         msg.guild.channels.create(channelName,{type:'text'}).then(channel=>{
+//             const categoryId="898975095454830684"
+//             channel.setParent(categoryId)
+//             msg.reply(`channel ${channelName} created`)
+//         }).catch(err=>{
+//             msg.reply(`error ${err}`)
+//         })
 
-    }
-    else{
-        msg.reply("You dont have permission to create channel")
-    }
-}
-// to delete text channel
-if(msg.content.startsWith("!deleteTextChannel")){
-    const {member}= msg;
-    if(member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])){
-        const channelName= msg.content.replace("!deleteTextChannel ","")
-        const channel = msg.guild.channels.cache
-        .filter((channel) => {
-          return channel.name === channelName 
-        })
-        .first();
-        if (!channel) {
-            msg.reply('That channel does not exist.')
-            return
-          }
+//     }
+//     else{
+//         msg.reply("You dont have permission to create channel")
+//     }
+// }
+// // to delete text channel
+// if(msg.content.startsWith("!deleteTextChannel")){
+//     const {member}= msg;
+//     if(member.permissions.has([Permissions.FLAGS.ADMINISTRATOR])){
+//         const channelName= msg.content.replace("!deleteTextChannel ","")
+//         const channel = msg.guild.channels.cache
+//         .filter((channel) => {
+//           return channel.name === channelName 
+//         })
+//         .first();
+//         if (!channel) {
+//             msg.reply('That channel does not exist.')
+//             return
+//           }
       
-          channel.delete()
+//           channel.delete()
       
-          msg.reply('Channel deleted!')
+//           msg.reply('Channel deleted!')
 
-    }
-    else{
-        msg.reply("You dont have permission to delete channel")
-    }
-}
-//  for banning or kicking
-if(msg.content.startsWith("!ban")){
-    const {member,mention} = msg
-    if(member.permissions.has([Permissions.FLAGS.KICK_MEMBERS, Permissions.FLAGS.BAN_MEMBERS])){
-        msg.reply("you have permission to ban members of this channel")
-    }
-    else{
-        msg.reply("you dont have permissions for banning the members")
-    }
-}
+//     }
+//     else{
+//         msg.reply("You dont have permission to delete channel")
+//     }
+// }
+// //  for banning or kicking
+// if(msg.content.startsWith("!ban")){
+//     const {member,mention} = msg
+//     if(member.permissions.has([Permissions.FLAGS.KICK_MEMBERS, Permissions.FLAGS.BAN_MEMBERS])){
+//         msg.reply("you have permission to ban members of this channel")
+//     }
+//     else{
+//         msg.reply("you dont have permissions for banning the members")
+//     }
+// }
  if(msg.content=="!custom gameplay"){
     const embed = new Discord.MessageEmbed()
     .setTitle("T3 CUSTOM HIGHLIGHTS")

@@ -1,6 +1,6 @@
 const Discord = require('discord.js')
 const Permissions=require('discord.js').Permissions
-const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES] })
+const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS,Discord.Intents.FLAGS.DIRECT_MESSAGES, Discord.Intents.FLAGS.GUILD_MESSAGES,Discord.Intents.FLAGS.GUILD_MEMBERS] })
 const axios= require('axios')
 const keepAlive = require('./app.js')   //keeps the bot alive
 require("dotenv").config()
@@ -11,7 +11,17 @@ require("dotenv").config()
 client.on("ready",()=>{
     console.log("logged in as "+client.user.tag)
     client.user.setPresence({ activities: [{ name: `"!help" for help` }], status: 'idle' })
+    // welcome message for server
+    client.on("guildMemberAdd", (member) => {
+    console.log(member)
+    const channelId='898975095454830686'
+    const message=`server me naya bot ${member.user.username} aaya hai`
+    const channel= member.guild.channels.cache.get(channelId)
+    channel.send(message)
+})    
+    
 })
+
 // message event is run when the bot recieves a message
 client.on("messageCreate",(msg)=>{
     if(msg.author.bot) return 
@@ -164,16 +174,43 @@ if(msg.content.startsWith("!deleteVoiceChannel")){
         msg.reply("You dont have permission to delete channel")
     }
 }
-//  for banning or kicking
+//  for banning 
 if(msg.content.startsWith("!ban")){
-    const {member,mention} = msg
-    if(member.permissions.has([Permissions.FLAGS.KICK_MEMBERS, Permissions.FLAGS.BAN_MEMBERS])){
-        msg.reply("you have permission to ban members of this channel")
+    const {member,mentions} = msg
+    if(member.permissions.has([Permissions.FLAGS.BAN_MEMBERS])){
+        const target=mentions.users.first()
+        if(target){
+            const targetMember= msg.guild.members.cache.get(target.id)
+            targetMember.ban();
+            msg.channel.send(`<@${target.tag}> has been banned`)
+        }
+        else{
+            msg.channel.send(`<@${member.id}> please mention a valid user`)
+        }
     }
     else{
-        msg.reply("you dont have permissions for banning the members")
+        msg.reply(`you dont have permissions for banning the members`)
     }
 }
+// for kicking the member form the server
+if(msg.content.startsWith("!kick")){
+    const {member,mentions} = msg
+    if(member.permissions.has([Permissions.FLAGS.KICK_MEMBERS])){
+        const target=mentions.users.first()
+        if(target){
+            const targetMember= msg.guild.members.cache.get(target.id)
+            targetMember.kick();
+            msg.channel.send(`<@${target.tag}> has been kicked`)
+        }
+        else{
+            msg.channel.send(`<@${member.id}> please mention a valid user`)
+        }
+    }
+    else{
+        msg.reply(`you dont have permissions for kicking the members`)
+    }
+}
+
  if(msg.content=="!custom gameplay"){
     const embed = new Discord.MessageEmbed()
     .setTitle("T3 CUSTOM HIGHLIGHTS")

@@ -11,6 +11,14 @@ require("dotenv").config()
 client.on("ready",()=>{
     console.log("logged in as "+client.user.tag)
     client.user.setPresence({ activities: [{ name: `"!help" for help` }], status: 'idle' })
+    // for member count of server
+    // const updateMembers=(guild)=>{
+    //     const channelId='925814759117455380'
+    //     const channel= guild.channels.cache.get(channelId)
+    //     channel.setName(`members-count: ${guild.memberCount.toLocaleString()}`)
+    // }
+    // client.on("guildMemberAdd",member => updateMembers(member.guild))
+    // client.on("guildMemberRemove",member => updateMembers(member.guild))
     // welcome message for server
     client.on("guildMemberAdd", (member) => {
     console.log(member)
@@ -252,18 +260,18 @@ if(msg.content.startsWith("!kick")){
          msg.reply("oops!! no joke for you")
      })
  }
- if(msg.content.toLowerCase().includes("lokesh")){
-     msg.reply("lokesh toh chutiya hai")
- }
- if(msg.content.toLowerCase().includes("croc")){
-     msg.reply("croc toh chutiya hai")
- }
- if(msg.content.toLowerCase().includes("vijay")){
-    msg.reply("vijay toh gandu hai")
-}
-if(msg.content.toLowerCase().includes("bicchu")){
-    msg.reply("bicchu toh gandu hai")
-}
+//  if(msg.content.toLowerCase().includes("lokesh")){
+//      msg.reply("lokesh toh chutiya hai")
+//  }
+//  if(msg.content.toLowerCase().includes("croc")){
+//      msg.reply("croc toh chutiya hai")
+//  }
+//  if(msg.content.toLowerCase().includes("vijay")){
+//     msg.reply("vijay toh gandu hai")
+// }
+// if(msg.content.toLowerCase().includes("bicchu")){
+//     msg.reply("bicchu toh gandu hai")
+// }
  if(msg.content.toLowerCase().includes("lagger") || msg.content.toLowerCase().includes("bhagwat") ||msg.content.toLowerCase().includes("bhola") ){
      msg.reply("baap k bare mai faltu nahi bhsdk")
  }
